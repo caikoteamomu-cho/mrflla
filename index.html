@@ -85,7 +85,7 @@ button:hover{
 
 <h1>CAIKO TE AMO 💖</h1>
 
-<button onclick="mensaje()">Tocar corazón</button>
+<button onclick="pregunta()">Apretame</button>
 <button onclick="abrirCarta()">Leer carta</button>
 
 <div id="carta">
@@ -94,11 +94,11 @@ mi niña, gracias por tanto que me ayudaste en mi vida, estoy tan contento que e
 desde ese dia que te conocí juro que no lo olvidaré nunca mas en mi vida, me encanta que seas asi conmigo,
 tan linda bonita Y CARIÑOSA MI AMOR ERES MI FAVORITA GRACIAS POR HACERME EL CHICO MAS FELIZ DE TODO EL MUNDO MI AMOR,
 YA VAMOS BASTANTE TIEMPO EEEEEE, BAÑATE COCHINA JAJJAJAJAJ AY TE AMO TANTO MI AMOR AY NKSE QUE DIGA CALLATR UWUWUUW TR AML, ESTOY MUY ENAMORADO
-    DE TI MI AMOR Y PERDON SI NO TE LO DIGO A VECES PERO ENSERIO ME SIENTO MUY ORGULLOSO DE TENERTE CONMIGO,eres una chica increíble,no hay nadie como tu
-    tan atenta,preucupada,cariñosa, HERMOSA,alguien como tu que siempre me dice de jugar,matar rl aburrimiento,de estar conmigo,de mirar series,de pasar el rato 
-    nosotros dos amor,me hace demasiado feliz,estare contigo toda mi vida,no te quiero dejar sola nunca,quiero hacerte feliz y sacarte todo ese aburrimiento.
-    Gracias por ser mi novia y llenar de carisma siempre ai vida💗 VALORO TODO LO QUE HACES POR MI,TODAS LAS ACTITUDES,REGALOS,MIMITOS,TODO MI PRINCESA,TODO,GRACIAS POR TODO
-    TE AMO UN MOGOLLÓN JAJAJAJAJAJAJJAJAAJAJAJJARJAJAJHAJAJ💗💗💗
+DE TI MI AMOR Y PERDON SI NO TE LO DIGO A VECES PERO ENSERIO ME SIENTO MUY ORGULLOSO DE TENERTE CONMIGO,eres una chica increíble,no hay nadie como tu
+tan atenta,preucupada,cariñosa, HERMOSA,alguien como tu que siempre me dice de jugar,matar rl aburrimiento,de estar conmigo,de mirar series,de pasar el rato 
+nosotros dos amor,me hace demasiado feliz,estare contigo toda mi vida,no te quiero dejar sola nunca,quiero hacerte feliz y sacarte todo ese aburrimiento.
+Gracias por ser mi novia y llenar de carisma siempre ai vida💗 VALORO TODO LO QUE HACES POR MI,TODAS LAS ACTITUDES,REGALOS,MIMITOS,TODO MI PRINCESA,TODO,GRACIAS POR TODO
+TE AMO UN MOGOLLÓN JAJAJAJAJAJAJJAJAAJAJAJJARJAJAJHAJAJ💗💗💗
 </p>
 <button onclick="cerrarCarta()">Cerrar</button>
 </div>
@@ -108,10 +108,35 @@ YA VAMOS BASTANTE TIEMPO EEEEEE, BAÑATE COCHINA JAJJAJAJAJ AY TE AMO TANTO MI A
 </audio>
 
 <script>
-function mensaje(){
-    alert("MI AMOR, ERES LA NIÑA MAS HERMOSA DEL UNIVERSO ENTERO, TE AMO CON TODA MI ALMA");
+// BOTÓN APRETAME 😏
+function pregunta(){
+    let cuadro = document.createElement("div");
+
+    cuadro.innerHTML = `
+        <h2>¿Me amas? 💖</h2>
+        <button onclick="respuesta()">Aceptar</button>
+        <button onclick="respuesta()">Aceptar</button>
+    `;
+
+    cuadro.style.position = "fixed";
+    cuadro.style.top = "50%";
+    cuadro.style.left = "50%";
+    cuadro.style.transform = "translate(-50%, -50%)";
+    cuadro.style.background = "white";
+    cuadro.style.color = "#ff4d6d";
+    cuadro.style.padding = "20px";
+    cuadro.style.borderRadius = "20px";
+    cuadro.style.textAlign = "center";
+    cuadro.style.boxShadow = "0 0 30px rgba(0,0,0,0.3)";
+
+    document.body.appendChild(cuadro);
 }
 
+function respuesta(){
+    alert("💖 SABÍA QUE IBAS A DECIR QUE SÍ 💖");
+}
+
+// CARTA
 function abrirCarta(){
     document.getElementById("carta").style.display="block";
 }
@@ -120,7 +145,7 @@ function cerrarCarta(){
     document.getElementById("carta").style.display="none";
 }
 
-// corazones flotando
+// CORAZONES
 for(let i=0;i<40;i++){
     let corazon = document.createElement("div");
     corazon.innerHTML = "💖";
