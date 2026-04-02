@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>CAIKO TE AMO</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-
 <style>
 body{
     margin:0;
@@ -15,6 +14,7 @@ body{
     animation: fondo 15s ease infinite;
     color:white;
     text-align:center;
+    position:relative;
 }
 
 @keyframes fondo{
@@ -48,14 +48,9 @@ button:hover{
 
 .corazon{
     position:absolute;
-    color:white;
-    font-size:25px;
-    animation: flotar linear infinite;
-}
-
-@keyframes flotar{
-    0%{transform: translateY(100vh); opacity:1;}
-    100%{transform: translateY(-10vh); opacity:0;}
+    font-size:30px;
+    cursor:pointer;
+    user-select:none;
 }
 
 #carta{
@@ -71,74 +66,59 @@ button:hover{
     width:80%;
     max-width:400px;
     box-shadow:0 0 30px rgba(0,0,0,0.3);
-    animation: aparecer 0.5s;
 }
 
-#minijuego{
+.final{
     display:none;
     position:fixed;
-    top:10%;
-    left:50%;
-    transform:translateX(-50%);
-    width:90%;
-    height:70vh;
-    border:3px dashed white;
-    border-radius:15px;
-    overflow:hidden;
-    background: rgba(255,255,255,0.1);
-}
-
-#canasta{
-    position:absolute;
-    bottom:10px;
-    left:50%;
-    transform:translateX(-50%);
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background:black;
+    color:#ff4d6d;
     font-size:50px;
-    user-select:none;
-}
-
-#puntaje{
-    position:absolute;
-    top:10px;
-    right:20px;
-    font-size:24px;
-    color:white;
-}
-
-@keyframes explotar{
-    0%{transform: scale(1);}
-    50%{transform: scale(2);}
-    100%{transform: scale(1);}
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:9999;
+    text-align:center;
 }
 </style>
 </head>
-
 <body>
 
 <h1>CAIKO TE AMO 💖</h1>
 
 <button onclick="pregunta()">Apretame</button>
 <button onclick="abrirCarta()">Leer carta</button>
-<button onclick="iniciarJuego()">Jugamos?</button>
+<button onclick="iniciarExplosion()">Jugamos?</button>
 
 <div id="carta">
 <p>
-mi niña, gracias por tanto que me ayudaste en mi vida, estoy tan contento que estes conmigo...
+mi niña, gracias por todo, YA PASARON 80 DIAS DE RELACION, UNA BANDA MI AMOR, gracias por quedarte en mi vida y hacerme super feliz, me dieron ganas de crear otro testo
+    porke si JAJAJA, enserio eres la persona que mas necesito en toda mi via y no quiero que nos volvamos a alejar, mis mejores recuerdos son literalmente contigo.
+    espero todo el dia para hacer llamada contigo o jugar, aunque este ahi haciendo nada igual me encanta escucharte, decirte decir cosas o hasta groserias PORKE TE VES
+    TAN TIERNA MI AMOR.
+    y no me gusta que te digas cosas malas, porque yo se muy bien que eres la niña mas hermosa de todo el universo entero, juro que eres la mujer mas bella, me encantatodo de vos.
+    me encanta tus actitudes, me encanta tus ojos, me encanta tus cachetes, tus hermosos labios, tu pelo que te queda tan bien, tu sentido del humor, tus chistes
+    tu acento, tu forma de bromear, tu estilo, tu forma de amara,  tu rostro, tu cuerpo, tu timidez, tu hiperactividad, tu sinceridad, cuando eres amable conmigo, cuando estas dormida
+    cuandoestas cariñosa, las veces en que te sientes segura, las veces en que me dices que te bañaste JAJAJAJ BROMI, tu forma de aguantarme, tu paciencia conmigo, los regalos que me haces
+    la forma en decirme las cosas, cuando eres tu, porque mi niña nadie te iguala, te quiero siempre para mi Y NUNCA TE DEJARE IRTE MI AMOR, PORQUE TE AMO CON TODA MI ALMA Y HARE TODO
+    LO POSIBLE PARA QUE TE QUEDES UWU, me sienti muy bien contigo, tengo toda la confianza y seguridad en ti mi amor, estoy demasiado orgulloso de tenerte en mi vida, PORQUE ERES TAN LINDA USHHH
 </p>
 <button onclick="cerrarCarta()">Cerrar</button>
 </div>
 
-<div id="minijuego">
-    <div id="puntaje">Puntos: 0</div>
-    <div id="canasta">🧺</div>
-</div>
+<div id="final" class="final">OBTUVISTE 27 PUNTOS WACHAA 💥💖</div>
 
 <audio autoplay loop>
     <source src="https://files.catbox.moe/8xq1u9.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// BOTÓN “APRETAME” CON CRUZ
+// -------------------
+// PREGUNTA “APRETAME”
 function pregunta(){
     let cuadro = document.createElement("div");
     cuadro.innerHTML = `
@@ -203,103 +183,72 @@ for(let i=0;i<40;i++){
 }
 
 // --------------------
-// MINI JUEGO CORAZÓN A LA CANASTA
+// MINI JUEGO EXPLOSIVO
 // --------------------
 let puntos = 0;
-let juegoActivo = false;
-let intervalCorazones;
+let explosionActiva = false;
 
-function iniciarJuego(){
+function iniciarExplosion(){
     puntos = 0;
-    document.getElementById("puntaje").innerText = "Puntos: 0";
-    document.getElementById("minijuego").style.display = "block";
-    juegoActivo = true;
-    crearCorazon();
-    intervalCorazones = setInterval(crearCorazon, 1500);
-    moverCanasta();
+    explosionActiva = true;
+    crearCorazonJuego();
+    let intervalo = setInterval(()=>{
+        if(!explosionActiva) clearInterval(intervalo);
+        else crearCorazonJuego();
+    }, 500);
 }
 
-function crearCorazon(){
-    if(!juegoActivo) return;
+function crearCorazonJuego(){
+    if(!explosionActiva) return;
     let cor = document.createElement("div");
     cor.innerText = "💖";
-    cor.style.position = "absolute";
-    cor.style.left = Math.random()*80 + "%";
+    cor.className = "corazon";
+    cor.style.left = Math.random()*90 + "vw";
     cor.style.top = "-50px";
     cor.style.fontSize = "30px";
-    cor.style.cursor = "pointer";
-    document.getElementById("minijuego").appendChild(cor);
-
-    let minijuego = document.getElementById("minijuego");
-    let maxTop = minijuego.clientHeight - 40; // altura máxima para que no se quede arriba
+    document.body.appendChild(cor);
 
     let caida = setInterval(()=>{
         let top = parseInt(cor.style.top);
-        if(top >= maxTop){
+        if(top > window.innerHeight){
             cor.remove();
             clearInterval(caida);
-        } else {
-            cor.style.top = top + 5 + "px"; // velocidad de caída
-        }
-    },50);
+        } else cor.style.top = top + 5 + "px";
+    }, 20);
 
     cor.addEventListener("click", ()=>{
         cor.remove();
         clearInterval(caida);
-        sumarPunto();
+        puntos++;
+        if(puntos>=3) terminarExplosion();
     });
 }
 
-function sumarPunto(){
-    puntos++;
-    document.getElementById("puntaje").innerText = "Puntos: " + puntos;
-    if(puntos >= 3){
-        terminarJuego();
-    }
-}
-
-// CANASTA sigue el mouse
-function moverCanasta(){
-    let canasta = document.getElementById("canasta");
-    document.getElementById("minijuego").addEventListener("mousemove",(e)=>{
-        let rect = e.currentTarget.getBoundingClientRect();
-        let x = e.clientX - rect.left;
-        canasta.style.left = x + "px";
+function terminarExplosion(){
+    explosionActiva = false;
+    // Explosión de todo
+    let todos = document.querySelectorAll("button, h1, #carta, .corazon");
+    todos.forEach(el=>{
+        el.style.transition = "all 0.5s";
+        el.style.transform = "rotate("+Math.random()*720+"deg) translate("+(Math.random()*100-50)+"px,"+(Math.random()*100-50)+"px) scale(2)";
+        el.style.opacity = "0";
     });
-}
 
-function terminarJuego(){
-    juegoActivo = false;
-    clearInterval(intervalCorazones);
-    // Explosión de corazones
-    for(let i=0;i<50;i++){
-        let cor = document.createElement("div");
-        cor.innerText = "💥";
-        cor.style.position = "absolute";
-        cor.style.left = Math.random()*90 + "%";
-        cor.style.top = Math.random()*60 + "%";
-        cor.style.fontSize = "30px";
-        cor.style.animation = "explotar 0.5s linear";
-        document.getElementById("minijuego").appendChild(cor);
-        setTimeout(()=>cor.remove(),1000);
-    }
     // Terremoto
-    let body = document.body;
     let t=0;
     let terremoto = setInterval(()=>{
-        let x = Math.random()*10-5;
-        let y = Math.random()*10-5;
-        body.style.transform = `translate(${x}px,${y}px)`;
+        let x = Math.random()*15-7;
+        let y = Math.random()*15-7;
+        document.body.style.transform = `translate(${x}px,${y}px)`;
         t++;
-        if(t>15){
+        if(t>20){
             clearInterval(terremoto);
-            body.style.transform = "translate(0,0)";
-            alert("27 PUNTOS OBTENIDOS 💖🎉");
-            document.getElementById("minijuego").style.display="none";
+            document.body.style.transform = "translate(0,0)";
+            // Pantalla final
+            document.getElementById("final").style.display="flex";
         }
     },50);
 }
 </script>
-
 </body>
 </html>
