@@ -69,6 +69,29 @@ button:hover{
     from{opacity:0; transform:translate(-50%,-60%);}
     to{opacity:1; transform:translate(-50%,-50%);}
 }
+#juegoCorazon{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:80px;
+    cursor:pointer;
+    user-select:none;
+}
+#mensajeFinal{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:50px;
+    color:#ff4d6d;
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
 </style>
 </head>
 <body>
@@ -77,21 +100,18 @@ button:hover{
 
 <button onclick="mensaje()">Apretame</button>
 <button onclick="abrirCarta()">Leer carta</button>
+<button onclick="iniciarJuego()">Juguemos</button>
 
 <div id="carta">
 <p>
-mi niña, gracias por tanto que me ayudaste en mi vida, estoy tan contento que estes conmigo, me haces muy feliz amor,
-desde ese dia que te conocí juro que no lo olvidaré nunca mas en mi vida, me encanta que seas asi conmigo,
-tan linda bonita Y CARIÑOSA MI AMOR ERES MI FAVORITA GRACIAS POR HACERME EL CHICO MAS FELIZ DE TODO EL MUNDO MI AMOR,
-YA VAMOS BASTANTE TIEMPO EEEEEE, BAÑATE COCHINA JAJJAJAJAJ AY TE AMO TANTO MI AMOR AY NKSE QUE DIGA CALLATR UWUWUUW TR AML, ESTOY MUY ENAMORADO
-    DE TI MI AMOR Y PERDON SI NO TE LO DIGO A VECES PERO ENSERIO ME SIENTO MUY ORGULLOSO DE TENERTE CONMIGO,eres una chica increíble,no hay nadie como tu
-    tan atenta,preucupada,cariñosa, HERMOSA,alguien como tu que siempre me dice de jugar,matar rl aburrimiento,de estar conmigo,de mirar series,de pasar el rato 
-    nosotros dos amor,me hace demasiado feliz,estare contigo toda mi vida,no te quiero dejar sola nunca,quiero hacerte feliz y sacarte todo ese aburrimiento.
-    Gracias por ser mi novia y llenar de carisma siempre ai vida💗 VALORO TODO LO QUE HACES POR MI,TODAS LAS ACTITUDES,REGALOS,MIMITOS,TODO MI PRINCESA,TODO,GRACIAS POR TODO
-    TE AMO UN MOGOLLÓN JAJAJAJAJAJAJJAJAAJAJAJJARJAJAJHAJAJ💗💗💗
+mi niña, gracias por tanto que me ayudaste en mi vida, estoy tan contento que estes conmigo, me haces muy feliz amor, desde ese dia que te conocí juro que no lo olvidaré nunca mas en mi vida, me encanta que seas asi conmigo, tan linda bonita Y CARIÑOSA MI AMOR ERES MI FAVORITA GRACIAS POR HACERME EL CHICO MAS FELIZ DE TODO EL MUNDO MI AMOR, YA VAMOS BASTANTE TIEMPO EEEEEE, BAÑATE COCHINA JAJJAJAJAJ AY TE AMO TANTO MI AMOR AY NKSE QUE DIGA CALLATR UWUWUUW TR AML, ESTOY MUY ENAMORADO DE TI MI AMOR Y PERDON SI NO TE LO DIGO A VECES PERO ENSERIO ME SIENTO MUY ORGULLOSO DE TENERTE CONMIGO,eres una chica increíble,no hay nadie como tu tan atenta,preucupada,cariñosa, HERMOSA,alguien como tu que siempre me dice de jugar,matar rl aburrimiento,de estar conmigo,de mirar series,de pasar el rato nosotros dos amor,me hace demasiado feliz,estare contigo toda mi vida,no te quiero dejar sola nunca,quiero hacerte feliz y sacarte todo ese aburrimiento. Gracias por ser mi novia y
+    llenar de carisma siempre ai vida💗 VALORO TODO LO QUE HACES POR MI,TODAS LAS ACTITUDES,REGALOS,MIMITOS,TODO MI PRINCESA,TODO,GRACIAS POR TODO TE AMO UN MOGOLLÓN JAJAJAJAJAJAJJAJAAJAJAJJARJAJAJHAJAJ💗💗💗
 </p>
 <button onclick="cerrarCarta()">Cerrar</button>
 </div>
+
+<div id="juegoCorazon">💖</div>
+<div id="mensajeFinal">CASATE CONMIGO 💍💖</div>
 
 <audio autoplay loop>
     <source src="https://files.catbox.moe/8xq1u9.mp3" type="audio/mpeg">
@@ -101,14 +121,8 @@ YA VAMOS BASTANTE TIEMPO EEEEEE, BAÑATE COCHINA JAJJAJAJAJ AY TE AMO TANTO MI A
 function mensaje(){
     alert("MI AMOR, ERES LA NIÑA MAS HERMOSA DEL UNIVERSO ENTERO, TE AMO CON TODA MI ALMA");
 }
-
-function abrirCarta(){
-    document.getElementById("carta").style.display="block";
-}
-
-function cerrarCarta(){
-    document.getElementById("carta").style.display="none";
-}
+function abrirCarta(){ document.getElementById("carta").style.display="block"; }
+function cerrarCarta(){ document.getElementById("carta").style.display="none"; }
 
 // corazones flotando
 for(let i=0;i<40;i++){
@@ -119,6 +133,29 @@ for(let i=0;i<40;i++){
     corazon.style.animationDuration = (5 + Math.random()*5) + "s";
     document.body.appendChild(corazon);
 }
+
+// -------------------
+// MINI JUEGO CORAZON
+let puntos = 0;
+function iniciarJuego(){
+    puntos = 0;
+    let cor = document.getElementById("juegoCorazon");
+    let msg = document.getElementById("mensajeFinal");
+    msg.style.display="none";
+    cor.style.display="block";
+}
+
+document.getElementById("juegoCorazon").addEventListener("click", function(){
+    puntos++;
+    // mover corazon a otra posición
+    this.style.left = Math.random()*80 + "vw";
+    this.style.top = Math.random()*80 + "vh";
+
+    if(puntos >= 3){
+        this.style.display="none";
+        document.getElementById("mensajeFinal").style.display="block";
+    }
+});
 </script>
 
 </body>
