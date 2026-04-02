@@ -2,65 +2,100 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Para Mi Amor</title>
+<title>CAIKO TE AMO</title>
+
 <style>
-    body{
-        background: linear-gradient(#ff9a9e, #fad0c4);
-        text-align: center;
-        font-family: Arial, sans-serif;
-        color: white;
-        margin-top: 50px;
-    }
+body{
+    margin:0;
+    overflow:hidden;
+    background: linear-gradient(black, #ff4d6d);
+    font-family: Arial, sans-serif;
+    color:white;
+    text-align:center;
+}
 
-    .corazon{
-        font-size: 100px;
-        cursor: pointer;
-        transition: transform 0.2s;
-    }
+h1{
+    position:absolute;
+    width:100%;
+    top:20px;
+    font-size:40px;
+}
 
-    .corazon:hover{
-        transform: scale(1.2);
-    }
+.corazon{
+    position:absolute;
+    color:red;
+    font-size:30px;
+    animation: flotar 10s linear infinite;
+}
 
-    button{
-        background-color: white;
-        color: #ff4d6d;
-        border: none;
-        padding: 15px 25px;
-        font-size: 18px;
-        border-radius: 10px;
-        cursor: pointer;
-        margin: 20px;
+@keyframes flotar{
+    0%{
+        transform: translateY(100vh);
+        opacity:1;
     }
+    100%{
+        transform: translateY(-10vh);
+        opacity:0;
+    }
+}
 
-    button:hover{
-        background-color: #ffe5ec;
-    }
+.texto{
+    position:absolute;
+    color:white;
+    font-size:20px;
+    animation: flotar 12s linear infinite;
+}
+button{
+    position:absolute;
+    bottom:40px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:15px 25px;
+    font-size:18px;
+    border:none;
+    border-radius:10px;
+    background:white;
+    color:#ff4d6d;
+    cursor:pointer;
+}
 </style>
 </head>
+
 <body>
 
-<h1>Para Mi Amor 💖</h1>
+<h1>CAIKO TE AMO 💖</h1>
 
-<div class="corazon" onclick="mensajeAmor()">❤️</div>
-
-<br>
-
-<button onclick="testamento()">Leer carta</button>
+<button onclick="mensaje()">Tocar corazón</button>
 
 <audio autoplay loop>
     <source src="https://files.catbox.moe/8xq1u9.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-function mensajeAmor(){
+function mensaje(){
     alert("MI AMOR, ERES LA NIÑA MAS HERMOSA DEL UNIVERSO ENTERO, TE AMO CON TODA MI ALMA");
 }
 
-function testamento(){
-    alert("mi niña, gracias por tanto que me ayudaste en mi vida, estoy tan contento que estes conmigo, me haces muy feliz amor, desde ese dia que te conocí juro que no lo olvidaré nunca mas en mi vida, me encanta que seas asi conmigo, tan linda bonita Y CARIÑOSA MI AMOR ERES MI FAVORITA GRACIAS POR HACERME EL CHICO MAS FELIZ DE TODO EL MUNDO MI AMOR, YA VAMOS BASTANTE TIEMPO EEEEEE, BAÑATE COCHINA JAJJAJAJAJ AY TE AMO TANTO MI AMOR AY NKSE QUE DIGA CALLATR UWUWUUW TR AML");
+// Crear corazones
+for(let i=0;i<30;i++){
+    let corazon = document.createElement("div");
+    corazon.innerHTML = "❤️";
+    corazon.className = "corazon";
+    corazon.style.left = Math.random()*100 + "vw";
+    corazon.style.animationDuration = (5 + Math.random()*5) + "s";
+    document.body.appendChild(corazon);
+}
+
+// Crear textos
+for(let i=0;i<20;i++){
+    let texto = document.createElement("div");
+    texto.innerHTML = "CAIKO TE AMO";
+    texto.className = "texto";
+    texto.style.left = Math.random()*100 + "vw";
+    texto.style.animationDuration = (6 + Math.random()*6) + "s";
+    document.body.appendChild(texto);
 }
 </script>
 
 </body>
-  </html>
+</html>
