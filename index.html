@@ -103,6 +103,67 @@ button:hover{
     border-radius:25px;
     box-shadow:0 0 30px rgba(0,0,0,0.3);
 }
+
+/* ===== ALBUM ===== */
+#album{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    color:#ff4d6d;
+    padding:20px;
+    border-radius:20px;
+    width:90%;
+    max-width:500px;
+    text-align:center;
+}
+
+.galeria{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    margin-top:15px;
+}
+
+.galeria img{
+    width:100%;
+    border-radius:15px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.galeria img:hover{
+    transform:scale(1.05);
+}
+
+#visor{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+#visor img{
+    max-width:80%;
+    border-radius:20px;
+}
+
+.cerrar{
+    position:absolute;
+    top:10px;
+    right:15px;
+    cursor:pointer;
+    font-size:20px;
+    font-weight:bold;
+}
 </style>
 </head>
 
@@ -113,6 +174,7 @@ button:hover{
 <button onclick="pregunta()">Apretame</button>
 <button onclick="abrirCarta()">Leer carta</button>
 <button onclick="iniciarJuego()">Juguemos</button>
+<button onclick="abrirAlbum()">Ver álbum 💖</button>
 
 <div id="carta">
 <p>
@@ -125,12 +187,31 @@ mi niña, gracias por tanto que me ayudaste en mi vida, estoy tan contento que e
 <div id="juegoCorazon">💖</div>
 <div id="mensajeFinal">CASATE CONMIGO 💍💖</div>
 
+<!-- ===== ALBUM ===== -->
+<div id="album">
+    <span onclick="cerrarAlbum()" class="cerrar">✖</span>
+    <h2>Nuestros momentos 💖</h2>
+
+    <div class="galeria">
+        <!-- CAMBIA ESTOS POR LOS NOMBRES DE TUS FOTOS -->
+        <img src="2026-01-13_01.24.38[1].png" onclick="verImagen(this)">
+        <img src="Screenshot_20251113_185031_Gallery[1].jpg" onclick="verImagen(this)">
+        <img src="Screenshot_20251113_185116_Gallery[1].jpg" onclick="verImagen(this)">
+        <img src="foto4.jpg" onclick="verImagen(this)">
+    </div>
+</div>
+
+<div id="visor">
+    <span onclick="cerrarVisor()" class="cerrar">✖</span>
+    <img id="imgGrande">
+</div>
+
 <audio autoplay loop>
     <source src="https://files.catbox.moe/8xq1u9.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-// BOTÓN “APRETAME” CON DOBLE ACEPTAR Y CRUZ
+// BOTÓN “APRETAME”
 function pregunta(){
     let cuadro = document.createElement("div");
 
@@ -186,13 +267,8 @@ function respuesta(){
 }
 
 // CARTA
-function abrirCarta(){
-    document.getElementById("carta").style.display="block";
-}
-
-function cerrarCarta(){
-    document.getElementById("carta").style.display="none";
-}
+function abrirCarta(){ document.getElementById("carta").style.display="block"; }
+function cerrarCarta(){ document.getElementById("carta").style.display="none"; }
 
 // CORAZONES FLOTANDO
 for(let i=0;i<40;i++){
@@ -204,7 +280,6 @@ for(let i=0;i<40;i++){
     document.body.appendChild(corazon);
 }
 
-// -------------------
 // MINI JUEGO CORAZON
 let puntos = 0;
 function iniciarJuego(){
@@ -217,7 +292,6 @@ function iniciarJuego(){
 
 document.getElementById("juegoCorazon").addEventListener("click", function(){
     puntos++;
-    // mover corazon a otra posición
     this.style.left = Math.random()*80 + "vw";
     this.style.top = Math.random()*80 + "vh";
 
@@ -226,6 +300,16 @@ document.getElementById("juegoCorazon").addEventListener("click", function(){
         document.getElementById("mensajeFinal").style.display="block";
     }
 });
+
+// ===== ALBUM =====
+function abrirAlbum(){ document.getElementById("album").style.display="block"; }
+function cerrarAlbum(){ document.getElementById("album").style.display="none"; }
+function verImagen(img){
+    document.getElementById("visor").style.display="flex";
+    document.getElementById("imgGrande").src = img.src;
+}
+function cerrarVisor(){ document.getElementById("visor").style.display="none"; }
+
 </script>
 
 </body>
