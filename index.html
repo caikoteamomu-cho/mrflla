@@ -1,5 +1,109 @@
-<!-- Mismo HEAD y estilo base -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>CAIKO TE AMO</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
 <style>
+body{
+    margin:0;
+    overflow:hidden;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(270deg, #ff4d6d, #ff8fa3, #ffc2d1);
+    background-size: 600% 600%;
+    animation: fondo 15s ease infinite;
+    color:white;
+    text-align:center;
+}
+
+@keyframes fondo{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+h1{
+    margin-top:30px;
+    font-size:45px;
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+button{
+    background: white;
+    color:#ff4d6d;
+    border:none;
+    padding:15px 25px;
+    font-size:18px;
+    border-radius:20px;
+    cursor:pointer;
+    margin:10px;
+    box-shadow:0 0 15px rgba(0,0,0,0.2);
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+.corazon{
+    position:absolute;
+    color:white;
+    font-size:25px;
+    animation: flotar linear infinite;
+}
+
+@keyframes flotar{
+    0%{transform: translateY(100vh); opacity:1;}
+    100%{transform: translateY(-10vh); opacity:0;}
+}
+
+#carta{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    background:white;
+    color:#ff4d6d;
+    padding:30px;
+    border-radius:20px;
+    width:80%;
+    max-width:400px;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+    animation: aparecer 0.5s;
+}
+
+@keyframes aparecer{
+    from{opacity:0; transform:translate(-50%,-60%);}
+    to{opacity:1; transform:translate(-50%,-50%);}
+}
+
+#juegoCorazon{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:80px;
+    cursor:pointer;
+    user-select:none;
+}
+
+#mensajeFinal{
+    display:none;
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    font-size:50px;
+    color:#ff4d6d;
+    background:white;
+    padding:30px;
+    border-radius:25px;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+}
+
 /* ===== ALBUM DESLIZABLE ===== */
 #album{
     display:none;
@@ -74,3 +178,154 @@
     justify-content:center;
 }
 </style>
+</head>
+
+<body>
+
+<h1>CAIKO TE AMO 💖</h1>
+
+<button onclick="pregunta()">Apretame</button>
+<button onclick="abrirCarta()">Leer carta</button>
+<button onclick="iniciarJuego()">Juguemos</button>
+<button onclick="abrirAlbum()">Ver álbum 💖</button>
+
+<div id="carta">
+<p>
+mi niña, gracias por tanto que me ayudaste en mi vida, estoy tan contento que estes conmigo, me haces muy feliz amor, desde ese dia que te conocí juro que no lo olvidaré nunca mas en mi vida, me encanta que seas asi conmigo, tan linda bonita Y CARIÑOSA MI AMOR ERES MI FAVORITA GRACIAS POR HACERME EL CHICO MAS FELIZ DE TODO EL MUNDO MI AMOR, YA VAMOS BASTANTE TIEMPO EEEEEE, BAÑATE COCHINA JAJJAJAJAJ AY TE AMO TANTO MI AMOR AY NKSE QUE DIGA CALLATR UWUWUUW TR AML, ESTOY MUY ENAMORADO DE TI MI AMOR Y PERDON SI NO TE LO DIGO A VECES PERO ENSERIO ME SIENTO MUY ORGULLOSO DE TENERTE CONMIGO,eres una chica increíble,no hay nadie como tu tan atenta,preucupada,cariñosa, HERMOSA,alguien como tu que siempre me dice de jugar,matar rl aburrimiento,de estar conmigo,de mirar series,de pasar el rato nosotros dos amor,me hace demasiado feliz,
+    estare contigo toda mi vida,no te quiero dejar sola nunca,quiero hacerte feliz y sacarte todo ese aburrimiento. Gracias por ser mi novia y llenar de carisma siempre ai vida💗 VALORO TODO LO QUE HACES POR MI,TODAS LAS ACTITUDES,REGALOS,MIMITOS,TODO MI PRINCESA,TODO,GRACIAS POR TODO TE AMO UN MOGOLLÓN JAJAJAJAJAJAJJAJAAJAJAJJARJAJAJHAJAJ💗💗💗
+</p>
+<button onclick="cerrarCarta()">Cerrar</button>
+</div>
+
+<div id="juegoCorazon">💖</div>
+<div id="mensajeFinal">CASATE CONMIGO 💍💖</div>
+
+<!-- ===== ALBUM ===== -->
+<div id="album" onclick="cerrarAlbumClick(event)">
+    <span onclick="cerrarAlbum()" class="cerrar">✖</span>
+    <h2>Nuestros momentos 💖</h2>
+    <div class="galeria">
+        <img src="2026-01-13_01.24.38[1].jpg" onclick="verImagen(this)">
+        <img src="Screenshot_20251113_185031_Gallery[1].jpg" onclick="verImagen(this)">
+        <img src="Screenshot_20251113_185116_Gallery[1].jpg" onclick="verImagen(this)">
+        <img src="foto4.jpg" onclick="verImagen(this)">
+    </div>
+</div>
+
+<div id="visor" onclick="cerrarVisor()">
+    <span class="cerrar">✖</span>
+    <img id="imgGrande">
+</div>
+
+<audio autoplay loop>
+    <source src="https://files.catbox.moe/8xq1u9.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// BOTÓN “APRETAME”
+function pregunta(){
+    let cuadro = document.createElement("div");
+
+    cuadro.innerHTML = `
+        <div style="position:relative;">
+            <span onclick="cerrarPregunta()" 
+                  style="
+                  position:absolute;
+                  top:-10px;
+                  right:-10px;
+                  background:#ff4d6d;
+                  color:white;
+                  border-radius:50%;
+                  width:25px;
+                  height:25px;
+                  display:flex;
+                  align-items:center;
+                  justify-content:center;
+                  cursor:pointer;
+                  font-weight:bold;
+                  ">✖</span>
+
+            <h2>¿Me amas? 💖</h2>
+            <button onclick="respuesta()">Aceptar</button>
+            <button onclick="respuesta()">Aceptar</button>
+        </div>
+    `;
+
+    cuadro.id = "preguntaBox";
+    cuadro.style.position = "fixed";
+    cuadro.style.top = "50%";
+    cuadro.style.left = "50%";
+    cuadro.style.transform = "translate(-50%, -50%)";
+    cuadro.style.background = "white";
+    cuadro.style.color = "#ff4d6d";
+    cuadro.style.padding = "25px";
+    cuadro.style.borderRadius = "20px";
+    cuadro.style.textAlign = "center";
+    cuadro.style.boxShadow = "0 0 30px rgba(0,0,0,0.3)";
+
+    document.body.appendChild(cuadro);
+}
+
+function cerrarPregunta(){
+    let box = document.getElementById("preguntaBox");
+    if(box){ box.remove(); }
+}
+
+function respuesta(){
+    alert("💖 SABÍA QUE IBAS A DECIR QUE SÍ 💖");
+}
+
+// CARTA
+function abrirCarta(){ document.getElementById("carta").style.display="block"; }
+function cerrarCarta(){ document.getElementById("carta").style.display="none"; }
+
+// CORAZONES FLOTANDO
+for(let i=0;i<40;i++){
+    let corazon = document.createElement("div");
+    corazon.innerHTML = "💖";
+    corazon.className = "corazon";
+    corazon.style.left = Math.random()*100 + "vw";
+    corazon.style.animationDuration = (5 + Math.random()*5) + "s";
+    document.body.appendChild(corazon);
+}
+
+// MINI JUEGO CORAZON
+let puntos = 0;
+function iniciarJuego(){
+    puntos = 0;
+    let cor = document.getElementById("juegoCorazon");
+    let msg = document.getElementById("mensajeFinal");
+    msg.style.display="none";
+    cor.style.display="block";
+}
+
+document.getElementById("juegoCorazon").addEventListener("click", function(){
+    puntos++;
+    this.style.left = Math.random()*80 + "vw";
+    this.style.top = Math.random()*80 + "vh";
+
+    if(puntos >= 3){
+        this.style.display="none";
+        document.getElementById("mensajeFinal").style.display="block";
+    }
+});
+
+// ===== ALBUM =====
+function abrirAlbum(){ document.getElementById("album").style.display="block"; }
+function cerrarAlbum(){ document.getElementById("album").style.display="none"; }
+// Permite cerrar haciendo clic fuera del contenido del álbum
+function cerrarAlbumClick(event){
+    if(event.target.id === "album"){ 
+        cerrarAlbum(); 
+    }
+}
+function verImagen(img){
+    document.getElementById("visor").style.display="flex";
+    document.getElementById("imgGrande").src = img.src;
+}
+function cerrarVisor(){ document.getElementById("visor").style.display="none"; }
+
+</script>
+
+</body>
+</html>
